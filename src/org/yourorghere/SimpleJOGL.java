@@ -100,7 +100,7 @@ public class SimpleJOGL implements GLEventListener {
             gl.glVertex3f(x, y, -6.0f); //kolejne punkty
         }
         gl.glEnd();
-        
+
         gl.glColor3f(1.0f, 0.0f, 0.0f);
 
         gl.glBegin(GL.GL_QUADS);
@@ -108,6 +108,14 @@ public class SimpleJOGL implements GLEventListener {
         gl.glVertex3f(-1.0f, 1.0f, -10.0f);
         gl.glVertex3f(1.0f, 1.0f, -10.0f);
         gl.glVertex3f(1.0f, -1.0f, -10.0f);
+        gl.glEnd();
+        
+        gl.glColor3f(0.0f, 1.0f, 0.0f);
+        
+        gl.glBegin(GL.GL_TRIANGLES);
+        gl.glVertex3f(0.0f, 1.0f, -20.0f);
+        gl.glVertex3f(-1.0f, -1.0f, -20.0f);
+        gl.glVertex3f(1.0f, -1.0f, -20.0f);
         gl.glEnd();
 
     }
