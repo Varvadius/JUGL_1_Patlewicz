@@ -87,11 +87,26 @@ public class SimpleJOGL implements GLEventListener {
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         // Reset the current matrix to the "identity"
         gl.glLoadIdentity();
+
+        gl.glColor3f(0.0f, 0.0f, 1.0f);
+
+        float x, y, kat;
+        gl.glBegin(GL.GL_TRIANGLE_FAN);
+        gl.glVertex3f(0.0f, 0.0f, -6.0f); //œrodek
+        for (kat = 0.0f; kat < (2.0f * Math.PI);
+                kat += (Math.PI / 32.0f)) {
+            x = 1.5f * (float) Math.sin(kat);
+            y = 1.5f * (float) Math.cos(kat);
+            gl.glVertex3f(x, y, -6.0f); //kolejne punkty
+        }
+        gl.glEnd();
         
+        gl.glColor3f(1.0f, 0.0f, 0.0f);
+
         gl.glBegin(GL.GL_QUADS);
         gl.glVertex3f(-1.0f, -1.0f, -10.0f);
-        gl.glVertex3f(-1.0f,1.0f, -10.0f);
-        gl.glVertex3f(1.0f, 1.0f,-10.0f);
+        gl.glVertex3f(-1.0f, 1.0f, -10.0f);
+        gl.glVertex3f(1.0f, 1.0f, -10.0f);
         gl.glVertex3f(1.0f, -1.0f, -10.0f);
         gl.glEnd();
 
