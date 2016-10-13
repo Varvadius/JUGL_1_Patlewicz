@@ -142,7 +142,7 @@ public class SimpleJOGL implements GLEventListener {
         gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokó³ osi X
         gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokó³ osi Y
 
-        //œciana dolna
+        //podstawa
         gl.glColor3f(1.0f, 0.0f, 1.0f);
         float x, y, z, kat;
         gl.glBegin(GL.GL_TRIANGLE_FAN);
@@ -151,20 +151,6 @@ public class SimpleJOGL implements GLEventListener {
                 kat += (Math.PI / 32.0f)) {
             x = 1.5f * (float) Math.sin(kat);
             y = 0.0f * (float) Math.cos(kat) -1.0f;
-            z = 1.5f * (float) Math.cos(kat);
-            gl.glVertex3f(x, y, z); //kolejne punkty
-        }
-        gl.glEnd();
-        
-        //œciana górna
-        gl.glColor3f(1.0f, 0.0f, 1.0f);
-        //float x, y, z, kat;
-        gl.glBegin(GL.GL_TRIANGLE_FAN);
-        gl.glVertex3f(0.0f, 1.0f, 0.0f); //œrodek
-        for (kat = 0.0f; kat < (2.0f * Math.PI);
-                kat += (Math.PI / 32.0f)) {
-            x = 1.5f * (float) Math.sin(kat);
-            y = 0.0f * (float) Math.cos(kat) +1.0f;
             z = 1.5f * (float) Math.cos(kat);
             gl.glVertex3f(x, y, z); //kolejne punkty
         }
@@ -181,7 +167,7 @@ public class SimpleJOGL implements GLEventListener {
             x = 1.5f * (float) Math.sin(kat);
             z = 1.5f * (float) Math.cos(kat);
             gl.glVertex3f(x, -1.0f, z); 
-            gl.glVertex3f(x, 1.0f, z);
+            gl.glVertex3f(0.0f, 1.0f, 0.0f);
         }
         gl.glEnd();
 
