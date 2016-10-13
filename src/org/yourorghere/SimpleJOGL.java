@@ -184,29 +184,7 @@ public class SimpleJOGL implements GLEventListener {
             gl.glVertex3f(x, 1.0f, z);
         }
         gl.glEnd();
-        
-        gl.glBegin(GL.GL_TRIANGLES);
-//œciana przednia
-        gl.glColor3f(1.0f, 0.0f, 0.0f);
-        gl.glVertex3f(-1.0f, -1.0f, 1.0f);
-        gl.glVertex3f(1.0f, -1.0f, 1.0f);
-        gl.glVertex3f(0.0f, 1.0f, 0.0f);
-//sciana tylnia
-        gl.glColor3f(0.0f, 1.0f, 0.0f);
-        gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-        gl.glVertex3f(1.0f, -1.0f, -1.0f);
-        gl.glVertex3f(0.0f, 1.0f, 0.0f);
-//œciana lewa
-        gl.glColor3f(0.0f, 0.0f, 1.0f);
-        gl.glVertex3f(-1.0f, -1.0f, -1.0f);
-        gl.glVertex3f(-1.0f, -1.0f, 1.0f);
-        gl.glVertex3f(0.0f, 1.0f, 0.0f);
-//œciana prawa
-        gl.glColor3f(1.0f, 1.0f, 0.0f);
-        gl.glVertex3f(1.0f, -1.0f, -1.0f);
-        gl.glVertex3f(1.0f, -1.0f, 1.0f);
-        gl.glVertex3f(0.0f, 1.0f, 0.0f);
-        gl.glEnd();
+
 
         // Flush all drawing operations to the graphics card
         gl.glFlush();
