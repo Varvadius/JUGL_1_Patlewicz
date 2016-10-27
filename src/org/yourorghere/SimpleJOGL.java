@@ -22,7 +22,7 @@ public class SimpleJOGL implements GLEventListener {
     static float ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f };//swiat³o otaczajšce
     static float diffuseLight[] = { 0.7f, 0.7f, 0.7f, 100.0f };//?wiat³o rozproszone
     static float specular[] = { 1.0f, 1.0f, 1.0f, 1.0f}; //?wiat³o odbite
-    static float lightPos[] = { 0.0f, 150.0f, 150.0f, 1.0f };//pozycja ?wiat³a
+    static float lightPos[] = { 0.0f, 150.0f, 150.0f, 10.0f };//pozycja ?wiat³a
 
     public static void main(String[] args) {
         Frame frame = new Frame("Simple JOGL Application");
@@ -66,6 +66,14 @@ public class SimpleJOGL implements GLEventListener {
                 lightPos[3] +=10.0f;
                 if(e.getKeyCode() == KeyEvent.VK_L)
                 lightPos[3] -=10.0f;
+                if(e.getKeyCode() == KeyEvent.VK_A)
+                lightPos[1] +=10.0f;
+                if(e.getKeyCode() == KeyEvent.VK_D)
+                lightPos[1] -=10.0f;
+                if(e.getKeyCode() == KeyEvent.VK_W)
+                lightPos[2] +=10.0f;
+                if(e.getKeyCode() == KeyEvent.VK_S)
+                lightPos[2] -=10.0f;
                 
             }
             public void keyReleased(KeyEvent e){}
