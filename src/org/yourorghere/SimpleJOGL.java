@@ -83,7 +83,7 @@ public class SimpleJOGL implements GLEventListener {
         float ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f };//swiat³o otaczajšce
         float diffuseLight[] = { 0.7f, 0.7f, 0.7f, 1.0f };//?wiat³o rozproszone
         float specular[] = { 1.0f, 1.0f, 1.0f, 1.0f}; //?wiat³o odbite
-        float lightPos[] = { 0.0f, 150.0f, 150.0f, 1.0f };//pozycja ?wiat³a
+        float lightPos[] = { 0.0f, 150.0f, 150.0f, 100.0f };//pozycja ?wiat³a
         //(czwarty parametr okre?la odleg³o?æ ?ród³a:
         //0.0f-nieskoñczona; 1.0f-okre?lona przez pozosta³e parametry)
         gl.glEnable(GL.GL_LIGHTING); //uaktywnienie o?wietlenia
@@ -104,7 +104,7 @@ public class SimpleJOGL implements GLEventListener {
 
         gl.glEnable(GL.GL_DEPTH_TEST);
         // Setup the drawing area and shading mode
-        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        //gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         gl.glShadeModel(GL.GL_SMOOTH); // try setting this to GL_FLAT and see what happens.
     }
 
