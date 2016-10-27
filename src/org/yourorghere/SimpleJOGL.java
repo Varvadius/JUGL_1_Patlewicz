@@ -75,6 +75,28 @@ public class SimpleJOGL implements GLEventListener {
                 if(e.getKeyCode() == KeyEvent.VK_S)
                 lightPos[2] -=10.0f;
                 
+                if(e.getKeyCode() == KeyEvent.VK_T){
+                ambientLight[0] +=1.0f;
+                ambientLight[1] +=1.0f;
+                ambientLight[2] +=1.0f;
+                }
+                if(e.getKeyCode() == KeyEvent.VK_G){
+                ambientLight[0] -=1.0f;
+                ambientLight[1] -=1.0f;
+                ambientLight[2] -=1.0f;
+                }
+                
+                if(e.getKeyCode() == KeyEvent.VK_Y){
+                diffuseLight[0] +=1.0f;
+                diffuseLight[1] +=1.0f;
+                diffuseLight[2] +=1.0f;
+                }
+                if(e.getKeyCode() == KeyEvent.VK_H){
+                diffuseLight[0] -=1.0f;
+                diffuseLight[1] -=1.0f;
+                diffuseLight[2] -=1.0f;
+                }
+                
             }
             public void keyReleased(KeyEvent e){}
             public void keyTyped(KeyEvent e){}
@@ -118,7 +140,7 @@ public class SimpleJOGL implements GLEventListener {
 
         gl.glEnable(GL.GL_DEPTH_TEST);
         // Setup the drawing area and shading mode
-        //gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         gl.glShadeModel(GL.GL_SMOOTH); // try setting this to GL_FLAT and see what happens.
     }
 
