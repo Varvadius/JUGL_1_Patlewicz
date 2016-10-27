@@ -19,6 +19,10 @@ import javax.media.opengl.glu.GLU;
  */
 public class SimpleJOGL implements GLEventListener {
     private static float xrot = 0.0f, yrot = 0.0f;
+    static float ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f };//swiat³o otaczajšce
+    static float diffuseLight[] = { 0.7f, 0.7f, 0.7f, 100.0f };//?wiat³o rozproszone
+    static float specular[] = { 1.0f, 1.0f, 1.0f, 1.0f}; //?wiat³o odbite
+    static float lightPos[] = { 0.0f, 150.0f, 150.0f, 1.0f };//pozycja ?wiat³a
 
     public static void main(String[] args) {
         Frame frame = new Frame("Simple JOGL Application");
@@ -58,6 +62,11 @@ public class SimpleJOGL implements GLEventListener {
                 yrot += 5.0f;
                 if(e.getKeyCode() == KeyEvent.VK_LEFT)
                 yrot -=5.0f;
+                if(e.getKeyCode() == KeyEvent.VK_O)
+                lightPos[3] +=10.0f;
+                if(e.getKeyCode() == KeyEvent.VK_L)
+                lightPos[3] -=10.0f;
+                
             }
             public void keyReleased(KeyEvent e){}
             public void keyTyped(KeyEvent e){}
@@ -80,10 +89,7 @@ public class SimpleJOGL implements GLEventListener {
         
         
         //warto?ci sk³adowe o?wietlenia i koordynaty ?ród³a ?wiat³a
-        float ambientLight[] = { 0.3f, 0.3f, 0.3f, 1.0f };//swiat³o otaczajšce
-        float diffuseLight[] = { 0.7f, 0.7f, 0.7f, 1.0f };//?wiat³o rozproszone
-        float specular[] = { 1.0f, 1.0f, 1.0f, 1.0f}; //?wiat³o odbite
-        float lightPos[] = { 0.0f, 150.0f, 150.0f, 100.0f };//pozycja ?wiat³a
+        
         //(czwarty parametr okre?la odleg³o?æ ?ród³a:
         //0.0f-nieskoñczona; 1.0f-okre?lona przez pozosta³e parametry)
         gl.glEnable(GL.GL_LIGHTING); //uaktywnienie o?wietlenia
@@ -136,6 +142,11 @@ public class SimpleJOGL implements GLEventListener {
         gl.glTranslatef(0.0f, 0.0f, -6.0f); //przesuniêcie o 6 jednostek
         gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokó³ osi X
         gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokó³ osi Y
+        
+        gl.glLightfv(GL.GL_LIGHT0,GL.GL_AMBIENT,ambientLight,0); //swiat³o otaczajšce
+        gl.glLightfv(GL.GL_LIGHT0,GL.GL_DIFFUSE,diffuseLight,0); //?wiat³o rozproszone
+        gl.glLightfv(GL.GL_LIGHT0,GL.GL_SPECULAR,specular,0); //?wiat³o odbite
+        gl.glLightfv(GL.GL_LIGHT0,GL.GL_POSITION,lightPos,0); //pozycja ?wiat³a
         
         //podstawa
         gl.glColor3f(0.0f, 1.0f, 0.0f);
