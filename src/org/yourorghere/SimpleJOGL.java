@@ -18,7 +18,7 @@ import javax.media.opengl.glu.GLU;
  */
 public class SimpleJOGL implements GLEventListener {
 
-    private static float xrot = 0.0f, yrot = 0.0f;
+    private static float xrot = 0.0f, yrot = 0.0f, zrot=0.0f;
     static float ambientLight[] = {0.3f, 0.3f, 0.3f, 1.0f};//swiat³o otaczajšce
     static float diffuseLight[] = {0.7f, 0.7f, 0.7f, 100.0f};//?wiat³o rozproszone
     static float specular[] = {1.0f, 1.0f, 1.0f, 1.0f}; //?wiat³o odbite
@@ -52,17 +52,23 @@ public class SimpleJOGL implements GLEventListener {
         //Obs³uga klawiszy strza³ek
         frame.addKeyListener(new KeyListener() {
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_UP) {
+                if (e.getKeyCode() == KeyEvent.VK_W) {
                     xrot -= 5.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                if (e.getKeyCode() == KeyEvent.VK_S) {
                     xrot += 5.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                if (e.getKeyCode() == KeyEvent.VK_D) {
                     yrot += 5.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                if (e.getKeyCode() == KeyEvent.VK_A) {
                     yrot -= 5.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_E) {
+                    zrot += 5.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_Q) {
+                    zrot -= 5.0f;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_O) {
                     lightPos[3] += 10.0f;
@@ -70,16 +76,16 @@ public class SimpleJOGL implements GLEventListener {
                 if (e.getKeyCode() == KeyEvent.VK_L) {
                     lightPos[3] -= 10.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_A) {
+                if (e.getKeyCode() == KeyEvent.VK_U) {
                     lightPos[1] += 10.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_D) {
+                if (e.getKeyCode() == KeyEvent.VK_J) {
                     lightPos[1] -= 10.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_W) {
+                if (e.getKeyCode() == KeyEvent.VK_H) {
                     lightPos[2] += 10.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_S) {
+                if (e.getKeyCode() == KeyEvent.VK_K) {
                     lightPos[2] -= 10.0f;
                 }
 
@@ -182,6 +188,7 @@ public class SimpleJOGL implements GLEventListener {
         gl.glTranslatef(0.0f, 0.0f, -6.0f); //przesuniêcie o 6 jednostek
         gl.glRotatef(xrot, 1.0f, 0.0f, 0.0f); //rotacja wokó³ osi X
         gl.glRotatef(yrot, 0.0f, 1.0f, 0.0f); //rotacja wokó³ osi Y
+        gl.glRotatef(zrot, 0.0f, 0.0f, 1.0f); //rotacja wokó³ osi Z
 
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, ambientLight, 0); //swiat³o otaczajšce
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuseLight, 0); //?wiat³o rozproszone
@@ -253,7 +260,7 @@ public class SimpleJOGL implements GLEventListener {
         stozek(gl);
         gl.glTranslatef(0.0f, 0.0f, 0.8f);
         gl.glColor3f(0.0f, 0.0f, 1.0f);
-        gl.glScalef(0.8f,0.8f,0.8f);
+        gl.glScalef(0.8f,0.8f,1.5f);
         walec(gl);
         gl.glPopMatrix();
     }
