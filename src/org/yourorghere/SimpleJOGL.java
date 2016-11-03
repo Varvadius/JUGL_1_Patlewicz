@@ -188,7 +188,7 @@ public class SimpleJOGL implements GLEventListener {
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, specular, 0); //?wiat³o odbite
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, lightPos, 0); //pozycja ?wiat³a
         
-        drzewo(gl);
+        las(gl,5,3);
         
 
 //        //podstawa
@@ -227,16 +227,35 @@ public class SimpleJOGL implements GLEventListener {
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
     }
     
+    void las(GL gl,int x,int y){
+        gl.glPushMatrix();
+        for(int i=0;i<x;i++){
+            gl.glPushMatrix();
+            for(int j=0;j<y;j++){
+                drzewo(gl);
+                gl.glTranslatef(3.0f, 0.0f, 0.0f);
+            }
+            gl.glPopMatrix();
+            gl.glTranslatef(0.0f, 3.0f, 0.0f);
+        }
+        gl.glPopMatrix();
+    }
+    
     void drzewo(GL gl){
+        gl.glPushMatrix();
         gl.glColor3f(0.0f, 1.0f, 0.0f);
         stozek(gl);
-        gl.glTranslatef(0.0f, 0.0f, 1.0f);
+        gl.glTranslatef(0.0f, 0.0f, 1.4f);
+        gl.glScalef(1.4f,1.4f,1.2f);
         stozek(gl);
-        gl.glTranslatef(0.0f, 0.0f, 1.0f);
+        gl.glTranslatef(0.0f, 0.0f, 1.2f);
+        gl.glScalef(1.2f,1.2f,1.0f);
         stozek(gl);
-        gl.glTranslatef(0.0f, 0.0f, 1.0f);
+        gl.glTranslatef(0.0f, 0.0f, 0.8f);
         gl.glColor3f(0.0f, 0.0f, 1.0f);
+        gl.glScalef(0.8f,0.8f,0.8f);
         walec(gl);
+        gl.glPopMatrix();
     }
 
     void walec(GL gl) {
