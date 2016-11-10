@@ -104,6 +104,7 @@ public class SimpleJOGL implements GLEventListener {
                 if (e.getKeyCode() == KeyEvent.VK_E) {
                     ob -= 5.0f;
                 }
+                
 
                 //swiatlo
                 if (e.getKeyCode() == KeyEvent.VK_O) {
