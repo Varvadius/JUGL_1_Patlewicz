@@ -8,6 +8,10 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
+import static org.yourorghere.SimpleJOGL.ob;
+import static org.yourorghere.SimpleJOGL.ramie1;
+import static org.yourorghere.SimpleJOGL.ramie2;
+import static org.yourorghere.SimpleJOGL.ramie3;
 
 /**
  * SimpleJOGL.java <BR>
@@ -18,11 +22,17 @@ import javax.media.opengl.glu.GLU;
  */
 public class SimpleJOGL implements GLEventListener {
 
-    private static float xrot = 0.0f, yrot = 0.0f, zrot=0.0f;
+    public Koparka koparka = new Koparka();
+    
+    private static float xrot = 0.0f, yrot = 0.0f, zrot = 0.0f;
     static float ambientLight[] = {0.3f, 0.3f, 0.3f, 1.0f};//swiat³o otaczajšce
     static float diffuseLight[] = {0.7f, 0.7f, 0.7f, 100.0f};//?wiat³o rozproszone
     static float specular[] = {1.0f, 1.0f, 1.0f, 1.0f}; //?wiat³o odbite
     static float lightPos[] = {0.0f, 150.0f, 150.0f, 10.0f};//pozycja ?wiat³a
+    public static float ob = 0.0f;
+    public static float ramie1 = 45.0f;
+    public static float ramie2 = -45.0f;
+    public static float ramie3 = -45.0f;
 
     public static void main(String[] args) {
         Frame frame = new Frame("Simple JOGL Application");
@@ -64,12 +74,38 @@ public class SimpleJOGL implements GLEventListener {
                 if (e.getKeyCode() == KeyEvent.VK_A) {
                     yrot -= 5.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_E) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     zrot += 5.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_Q) {
+                if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
                     zrot -= 5.0f;
                 }
+                if (e.getKeyCode() == KeyEvent.VK_R) {
+                    ramie1 += 5.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_F) {
+                    ramie1 -= 5.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_T) {
+                    ramie2 += 5.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_G) {
+                    ramie2 -= 5.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_Y) {
+                    ramie3 += 5.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_H) {
+                    ramie3 -= 5.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_Q) {
+                    ob += 5.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_E) {
+                    ob -= 5.0f;
+                }
+
+                //swiatlo
                 if (e.getKeyCode() == KeyEvent.VK_O) {
                     lightPos[3] += 10.0f;
                 }
@@ -82,30 +118,24 @@ public class SimpleJOGL implements GLEventListener {
                 if (e.getKeyCode() == KeyEvent.VK_J) {
                     lightPos[1] -= 10.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_H) {
-                    lightPos[2] += 10.0f;
-                }
-                if (e.getKeyCode() == KeyEvent.VK_K) {
-                    lightPos[2] -= 10.0f;
-                }
 
-                if (e.getKeyCode() == KeyEvent.VK_T) {
+                if (e.getKeyCode() == KeyEvent.VK_I) {
                     ambientLight[0] += 1.0f;
                     ambientLight[1] += 1.0f;
                     ambientLight[2] += 1.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_G) {
+                if (e.getKeyCode() == KeyEvent.VK_K) {
                     ambientLight[0] -= 1.0f;
                     ambientLight[1] -= 1.0f;
                     ambientLight[2] -= 1.0f;
                 }
 
-                if (e.getKeyCode() == KeyEvent.VK_Y) {
+                if (e.getKeyCode() == KeyEvent.VK_N) {
                     diffuseLight[0] += 1.0f;
                     diffuseLight[1] += 1.0f;
                     diffuseLight[2] += 1.0f;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_H) {
+                if (e.getKeyCode() == KeyEvent.VK_M) {
                     diffuseLight[0] -= 1.0f;
                     diffuseLight[1] -= 1.0f;
                     diffuseLight[2] -= 1.0f;
@@ -194,9 +224,9 @@ public class SimpleJOGL implements GLEventListener {
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, diffuseLight, 0); //?wiat³o rozproszone
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, specular, 0); //?wiat³o odbite
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, lightPos, 0); //pozycja ?wiat³a
-        
-        las(gl,10,10);
-        
+
+        //las(gl, 10, 10);
+        koparka.Rysuj(gl);
 
 //        //podstawa
 //        gl.glColor3f(0.0f, 1.0f, 0.0f);
@@ -226,19 +256,18 @@ public class SimpleJOGL implements GLEventListener {
 //            gl.glVertex3f(0.0f, 1.0f, 0.0f);
 //        }
 //        gl.glEnd();
-
         // Flush all drawing operations to the graphics card
         gl.glFlush();
     }
 
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
     }
-    
-    void las(GL gl,int x,int y){
+
+    void las(GL gl, int x, int y) {
         gl.glPushMatrix();
-        for(int i=0;i<x;i++){
+        for (int i = 0; i < x; i++) {
             gl.glPushMatrix();
-            for(int j=0;j<y;j++){
+            for (int j = 0; j < y; j++) {
                 drzewo(gl);
                 gl.glTranslatef(3.0f, 0.0f, 0.0f);
             }
@@ -247,20 +276,20 @@ public class SimpleJOGL implements GLEventListener {
         }
         gl.glPopMatrix();
     }
-    
-    void drzewo(GL gl){
+
+    void drzewo(GL gl) {
         gl.glPushMatrix();
         gl.glColor3f(0.0f, 1.0f, 0.0f);
         stozek(gl);
         gl.glTranslatef(0.0f, 0.0f, 1.4f);
-        gl.glScalef(1.4f,1.4f,1.2f);
+        gl.glScalef(1.4f, 1.4f, 1.2f);
         stozek(gl);
         gl.glTranslatef(0.0f, 0.0f, 1.2f);
-        gl.glScalef(1.2f,1.2f,1.0f);
+        gl.glScalef(1.2f, 1.2f, 1.0f);
         stozek(gl);
         gl.glTranslatef(0.0f, 0.0f, 0.8f);
-        gl.glColor3f(0.0f, 0.0f, 1.0f);
-        gl.glScalef(0.8f,0.8f,1.5f);
+        gl.glColor3f(0.55f, 0.27f, 0.08f);
+        gl.glScalef(0.8f, 0.8f, 1.5f);
         walec(gl);
         gl.glPopMatrix();
     }
@@ -324,4 +353,158 @@ public class SimpleJOGL implements GLEventListener {
         }
         gl.glEnd();
     }
+
+    
+
 }
+
+class Koparka {
+
+        public void Rysuj(GL gl) {
+            //ciagnik
+            gl.glColor3f(1.0f, 1.0f, 0.0f);
+            Prostopadloscian(gl, -2.0f, -1.0f, -1.0f, 4.0f, 1.0f, 2.0f);
+            gl.glColor3f(0.15f, 0.15f, 0.15f);
+            Walec(gl, 0.5f, 0.5f, -1.5f, -1.0f, -1.25f);
+            Walec(gl, 0.5f, 0.5f, -1.5f, -1.0f, 0.75f);
+            Walec(gl, 0.5f, 0.5f, 1.5f, -1.0f, -1.25f);
+            Walec(gl, 0.5f, 0.5f, 1.5f, -1.0f, 0.75f);
+            gl.glColor3f(1.0f, 1.0f, 0.0f);
+            Prostopadloscian(gl, -0.5f, 0.0f, -1.0f, 2.0f, 0.5f, 2.0f);
+            Prostopadloscian(gl, -0.5f, 0.5f, -1.0f, 0.1f, 1.0f, 0.1f);
+            Prostopadloscian(gl, -0.5f, 0.5f, 0.9f, 0.1f, 1.0f, 0.1f);
+            Prostopadloscian(gl, 1.4f, 0.5f, -1.0f, 0.1f, 1.0f, 0.1f);
+            Prostopadloscian(gl, 1.4f, 0.5f, 0.9f, 0.1f, 1.0f, 0.1f);
+            Prostopadloscian(gl, -0.5f, 1.5f, -1.0f, 2.0f, 0.1f, 2.0f);
+//ramie 1
+            if(ramie1>80.0f) ramie1=80.0f;
+            if(ramie1<-10.0f) ramie1=-10.0f;
+            if(ob>45.0f) ob=45.0f;
+            if(ob<-45.0f) ob=-45.0f;
+            gl.glTranslatef(1.5f, 0.0f, 0.0f);
+            gl.glRotatef(ob, 0.0f, 1.0f, 0.0f);
+            gl.glRotatef(ramie1, 0.0f, 0.0f, 1.0f);
+            Prostopadloscian(gl, 0.0f, 0.0f, 0.0f, 3.0f, 0.3f, 0.3f);
+//ramie 2
+            if(ramie2<-110.0f) ramie2=-110.0f;
+            if(ramie2>0.0f) ramie2=0.0f;
+            gl.glTranslatef(2.7f, 0.0f, 0.0f);
+            gl.glRotatef(ramie2, 0.0f, 0.0f, 1.0f);
+            Prostopadloscian(gl, 0.0f, 0.0f, 0.0f, 1.5f, 0.3f, 0.3f);
+//lyzka
+            if(ramie3<-140.0f) ramie3=-140.0f;
+            if(ramie3>0.0f) ramie3=0.0f;
+            gl.glTranslatef(1.2f, 0.1f, 0.0f);
+            gl.glRotatef(ramie3, 0.0f, 0.0f, 1.0f);
+            Lyzka(gl);
+        }
+
+        private void Prostopadloscian(GL gl, float x0, float y0, float z0,
+                float dx, float dy, float dz) {
+            float x1 = x0 + dx;
+            float y1 = y0 + dy;
+            float z1 = z0 + dz;
+            gl.glBegin(GL.GL_QUADS);
+//sciana przednia
+            gl.glNormal3f(0.0f, 0.0f, 1.0f);
+            gl.glVertex3f(x0, y0, z1);
+            gl.glVertex3f(x1, y0, z1);
+            gl.glVertex3f(x1, y1, z1);
+            gl.glVertex3f(x0, y1, z1);
+//sciana tylnia
+            gl.glNormal3f(0.0f, 0.0f, -1.0f);
+            gl.glVertex3f(x0, y1, z0);
+            gl.glVertex3f(x1, y1, z0);
+            gl.glVertex3f(x1, y0, z0);
+            gl.glVertex3f(x0, y0, z0);
+//sciana lewa
+            gl.glNormal3f(-1.0f, 0.0f, 0.0f);
+            gl.glVertex3f(x0, y0, z0);
+            gl.glVertex3f(x0, y0, z1);
+            gl.glVertex3f(x0, y1, z1);
+            gl.glVertex3f(x0, y1, z0);
+//sciana prawa
+            gl.glNormal3f(1.0f, 0.0f, 0.0f);
+            gl.glVertex3f(x1, y1, z0);
+            gl.glVertex3f(x1, y1, z1);
+            gl.glVertex3f(x1, y0, z1);
+            gl.glVertex3f(x1, y0, z0);
+//sciana dolna
+            gl.glNormal3f(0.0f, -1.0f, 0.0f);
+            gl.glVertex3f(x0, y0, z1);
+            gl.glVertex3f(x0, y0, z0);
+            gl.glVertex3f(x1, y0, z0);
+            gl.glVertex3f(x1, y0, z1);
+//sciana gorna
+            gl.glNormal3f(0.0f, 1.0f, 0.0f);
+            gl.glVertex3f(x1, y1, z1);
+            gl.glVertex3f(x1, y1, z0);
+            gl.glVertex3f(x0, y1, z0);
+            gl.glVertex3f(x0, y1, z1);
+            gl.glEnd();
+        }
+
+        private void Walec(GL gl, float promien, float dlugosc,
+                float px, float py, float pz) {
+            float x = 0.0f, y = 0.0f, kat = 0.0f;
+            gl.glBegin(GL.GL_QUAD_STRIP);
+            for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
+                x = px + promien * (float) Math.sin(kat);
+                y = py + promien * (float) Math.cos(kat);
+                gl.glNormal3f((float) Math.sin(kat), (float) Math.cos(kat), 0.0f);
+                gl.glVertex3f(x, y, pz);
+                gl.glVertex3f(x, y, pz + dlugosc);
+            }
+            gl.glEnd();
+            gl.glNormal3f(0.0f, 0.0f, -1.0f);
+            x = y = kat = 0.0f;
+            gl.glBegin(GL.GL_TRIANGLE_FAN);
+            gl.glVertex3f(px, py, pz); //srodek kola
+            for (kat = 0.0f; kat < (2.0f * Math.PI); kat += (Math.PI / 32.0f)) {
+                x = px + promien * (float) Math.sin(kat);
+                y = py + promien * (float) Math.cos(kat);
+                gl.glVertex3f(x, y, pz);
+            }
+            gl.glEnd();
+            gl.glNormal3f(0.0f, 0.0f, 1.0f);
+            x = y = kat = 0.0f;
+            gl.glBegin(GL.GL_TRIANGLE_FAN);
+            gl.glVertex3f(px, py, pz + dlugosc); //srodek kola
+            for (kat = 2.0f * (float) Math.PI; kat > 0.0f; kat -= (Math.PI / 32.0f)) {
+                x = px + promien * (float) Math.sin(kat);
+                y = py + promien * (float) Math.cos(kat);
+                gl.glVertex3f(x, y, pz + dlugosc);
+            }
+            gl.glEnd();
+        }
+
+        private void Lyzka(GL gl) {
+            gl.glDisable(GL.GL_CULL_FACE);
+            gl.glBegin(GL.GL_TRIANGLES);
+//prawa
+            gl.glNormal3f(0.0f, 0.0f, 1.0f);
+            gl.glVertex3f(0.0f, 0.0f, 0.5f);
+            gl.glVertex3f(0.5f, 0.5f, 0.5f);
+            gl.glVertex3f(0.0f, 0.5f, 0.5f);
+//lewa
+            gl.glNormal3f(0.0f, 0.0f, -1.0f);
+            gl.glVertex3f(0.0f, 0.0f, -0.2f);
+            gl.glVertex3f(0.0f, 0.5f, -0.2f);
+            gl.glVertex3f(0.5f, 0.5f, -0.2f);
+            gl.glEnd();
+            gl.glDisable(GL.GL_CULL_FACE);
+            gl.glBegin(GL.GL_QUADS);
+            gl.glNormal3f(-1.0f, 0.0f, 0.0f);
+            gl.glVertex3f(0.0f, 0.0f, 0.5f);
+            gl.glVertex3f(0.0f, 0.5f, 0.5f);
+            gl.glVertex3f(0.0f, 0.5f, -0.2f);
+            gl.glVertex3f(0.0f, 0.0f, -0.2f);
+            gl.glNormal3f(0.0f, 1.0f, 0.0f);
+            gl.glVertex3f(0.0f, 0.5f, 0.5f);
+            gl.glVertex3f(0.5f, 0.5f, 0.5f);
+            gl.glVertex3f(0.5f, 0.5f, -0.2f);
+            gl.glVertex3f(0.0f, 0.5f, -0.2f);
+            gl.glEnd();
+            gl.glEnable(GL.GL_CULL_FACE);
+        }
+    }
