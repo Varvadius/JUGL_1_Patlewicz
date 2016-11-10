@@ -8,10 +8,6 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
-import static org.yourorghere.SimpleJOGL.ob;
-import static org.yourorghere.SimpleJOGL.ramie1;
-import static org.yourorghere.SimpleJOGL.ramie2;
-import static org.yourorghere.SimpleJOGL.ramie3;
 
 /**
  * SimpleJOGL.java <BR>
@@ -22,7 +18,7 @@ import static org.yourorghere.SimpleJOGL.ramie3;
  */
 public class SimpleJOGL implements GLEventListener {
 
-    public Koparka koparka = new Koparka();
+    public static Koparka koparka = new Koparka();
     
     private static float xrot = 0.0f, yrot = 0.0f, zrot = 0.0f;
     static float ambientLight[] = {0.3f, 0.3f, 0.3f, 1.0f};//swiat³o otaczajšce
@@ -33,6 +29,7 @@ public class SimpleJOGL implements GLEventListener {
     public static float ramie1 = 45.0f;
     public static float ramie2 = -45.0f;
     public static float ramie3 = -45.0f;
+    public static boolean kopanie = false;
 
     public static void main(String[] args) {
         Frame frame = new Frame("Simple JOGL Application");
@@ -81,28 +78,31 @@ public class SimpleJOGL implements GLEventListener {
                     zrot -= 5.0f;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_R) {
-                    ramie1 += 5.0f;
+                    koparka.setRamie1(5.0f);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_F) {
-                    ramie1 -= 5.0f;
+                    koparka.setRamie1(-5.0f);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_T) {
-                    ramie2 += 5.0f;
+                    koparka.setRamie2(5.0f);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_G) {
-                    ramie2 -= 5.0f;
+                    koparka.setRamie2(-5.0f);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_Y) {
-                    ramie3 += 5.0f;
+                    koparka.setRamie3(5.0f);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_H) {
-                    ramie3 -= 5.0f;
+                    koparka.setRamie3(-5.0f);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_Q) {
                     ob += 5.0f;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_E) {
                     ob -= 5.0f;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_1) {
+                    kopanie = !kopanie;
                 }
                 
 
@@ -228,7 +228,7 @@ public class SimpleJOGL implements GLEventListener {
 
         //las(gl, 10, 10);
         koparka.Rysuj(gl);
-
+        
 //        //podstawa
 //        gl.glColor3f(0.0f, 1.0f, 0.0f);
 //        float x, y, z, kat;
@@ -360,7 +360,38 @@ public class SimpleJOGL implements GLEventListener {
 }
 
 class Koparka {
-
+        private float ramie1,ramie2,ramie3,ob;
+        
+        Koparka(float ramie1,float ramie2, float ramie3, float ob){
+            this.ramie1=ramie1;
+            this.ramie2=ramie2;
+            this.ramie3=ramie3;
+            this.ob=ob;
+        }
+        
+        Koparka(){
+            ramie1=45.0f;
+            ramie2=-45.0f;
+            ramie3=-45.0f;
+            ob=0.0f;
+        }
+        
+        public void setRamie1(float r){
+            ramie1 += r;
+        }
+        
+        public void setRamie2(float r){
+            ramie2 += r;
+        }
+        
+        public void setRamie3(float r){
+            ramie3 += r;
+        }
+        
+        public void setOb(float r){
+            ob += r;
+        }
+    
         public void Rysuj(GL gl) {
             //ciagnik
             gl.glColor3f(1.0f, 1.0f, 0.0f);
